@@ -67,13 +67,13 @@ function handleActionInput(action) {
 
 function calculate(firstOperand, secondOperand, operator) {
     switch (operator) {
-        case '+':
+        case 'add':
             return firstOperand + secondOperand;
-        case '-':
+        case 'subtract':
             return firstOperand - secondOperand;
-        case 'x':
+        case 'multiply':
             return firstOperand * secondOperand;
-        case ':':
+        case 'divide':
             if (secondOperand === 0) {
                 alert("Division durch Null ist nicht erlaubt.");
                 return firstOperand;
