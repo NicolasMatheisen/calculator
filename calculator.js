@@ -1,7 +1,8 @@
-const display = document.getElementById('display');
-const operator = '';
-const firstOperand = null;
-const secondOperand = null;
+let displayValue = '0';
+let operator = '';
+let firstOperand = null;
+let secondOperand = null;
+let awaitSecondOperator = false;
 
 document.querySelectorAll('.button').forEach(
     button => {
@@ -13,10 +14,26 @@ document.querySelectorAll('.button').forEach(
                 if (number) {
                     handleNumberInput(number);
                 }
-                else (action) {
+                else if (action) {
                     handleActionInput(action);
                 }
             }
         );
     }
 );
+
+function handleNumberInput(number) {
+    if (awaitSecondOperator) {
+        displayValue = number;
+        awaitSecondOperator = false;
+    }
+    else {
+        displayValue = displayValue === '0' ? number : displayValue + number;
+    }
+    updateDisplay();
+}
+
+function updateDisplay() {
+    const display = document.getElementById('display');
+    display.textContent = displayValue;
+}
