@@ -26,3 +26,7 @@
 .button:hover {
     background-color: #d0d0d0;
 }
+
+.button.large {
+    flex: 2 0 44%;
+}
