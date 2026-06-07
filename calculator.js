@@ -22,16 +22,27 @@ document.querySelectorAll('.button').forEach(
     }
 );
 
+
 function handleNumberInput(number) {
     if (awaitSecondOperator) {
         displayValue = number;
         awaitSecondOperator = false;
-    }
-    else {
-        displayValue = displayValue === '0' ? number : displayValue + number;
+    } else {
+        if (displayValue === '0' || displayValue === '') {
+            displayValue = number;
+        } 
+        else if (number === ',') { 
+            if (!displayValue.includes(',')) {
+                displayValue += number;
+            }
+        } 
+        else {
+            displayValue += number;
+        }
     }
     updateDisplay();
 }
+
 
 function handleActionInput(action) {
     if (action === 'clear') {
@@ -49,6 +60,12 @@ function handleActionInput(action) {
             firstOperand = null;
             awaitSecondOperator = false;
         }
+    }
+     else if (action === 'negate') {
+        displayValue = (parseFloat(displayValue) * -1).toString();
+    } 
+    else if (action === 'percent') {
+        displayValue = (parseFloat(displayValue) / 100).toString();
     } 
     else {
         if (firstOperand === null) {
