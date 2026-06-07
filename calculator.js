@@ -33,6 +33,39 @@ function handleNumberInput(number) {
     updateDisplay();
 }
 
+function handleActionInput(action) {
+    if (action === 'clear') {
+        displayValue = '0';
+        firstOperand = null;
+        secondOperand = null;
+        operator = '';
+        awaitSecondOperator = false;
+    } 
+    else if (action === 'equals') {
+        if (firstOperand !== null && operator) {
+            secondOperand = parseFloat(displayValue);
+            displayValue = calculate(firstOperand, secondOperand, operator);
+            operator = '';
+            firstOperand = null;
+            awaitSecondOperator = false;
+        }
+    } 
+    else {
+        if (firstOperand === null) {
+            firstOperand = parseFloat(displayValue);
+        } 
+        else if (operator) {
+            secondOperand = parseFloat(displayValue);
+            displayValue = calculate(firstOperand, secondOperand, operator);
+            firstOperand = parseFloat(displayValue);
+        }
+        operator = action;
+        awaitSecondOperator = true;
+    }
+    updateDisplay();
+}
+
+
 function updateDisplay() {
     const display = document.getElementById('display');
     display.textContent = displayValue;
