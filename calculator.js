@@ -65,6 +65,25 @@ function handleActionInput(action) {
     updateDisplay();
 }
 
+function calculate(firstOperand, secondOperand, operator) {
+    switch (operator) {
+        case '+':
+            return firstOperand + secondOperand;
+        case '-':
+            return firstOperand - secondOperand;
+        case 'x':
+            return firstOperand * secondOperand;
+        case ':':
+            if (secondOperand === 0) {
+                alert("Division durch Null ist nicht erlaubt.");
+                return firstOperand;
+            }
+            return firstOperand / secondOperand;
+        default:
+            return secondOperand;
+    }
+}
+
 
 function updateDisplay() {
     const display = document.getElementById('display');
