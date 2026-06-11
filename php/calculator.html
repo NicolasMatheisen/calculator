@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="calculator.js" defer></script>
-    <link rel="stylesheet" href="styles.css">
-    <title>Taschenrechner</title>
-  </head>
-  <body>
-    <main class="calculator">
-        <div class="display" id="display"">0</div>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="calculator.js" defer></script>
+		<link rel="stylesheet" href="styles.css">
+		<title>Taschenrechner</title>
+	</head>
+	<body>
+		<main class="calculator">
+			<form method="POST" action="calculator.php">
+				<div class="display" id="display">0</div>
 
-        <div class="calculatorKeys">
-            <button class="button buttonFunction" data-action="clear">AC</button>
-            <button class="button buttonFunction" data-action="negate">+/-</button>
-            <button class="button buttonFunction" data-action="percent">%</button>
-            <button class="button buttonOperator" data-action="divide">:</button>
+				<div class="calculatorKeys">
+					<input type="hidden" name="result" id="result" value="0">
+					<button class="button buttonFunction" type="submit" name="action" value="clear">AC</button>
+					<button class="button buttonFunction" type="submit" name="action" value="negate">+/-</button>
+					<button class="button buttonFunction" type="submit" name="action" value="percent">%</button>
+					<button class="button buttonOperator" type="submit" name="action" value="divide">:</button>
 
-            <button class="button buttonNumber" data-number="7">7</button>
-            <button class="button buttonNumber" data-number="8">8</button>
-            <button class="button buttonNumber" data-number="9">9</button>
-            <button class="button buttonOperator" data-action="multiply">x</button>
+					<button class="button buttonNumber" type="submit" name="number" value="7">7</button>
+					<button class="button buttonNumber" type="submit" name="number" value="8">8</button>
+					<button class="button buttonNumber" type="submit" name="number" value="9">9</button>
+					<button class="button buttonOperator" type="submit" name="action" value="multiply">x</button>
 
-            <button class="button buttonNumber" data-number="4">4</button>
-            <button class="button buttonNumber" data-number="5">5</button>
-            <button class="button buttonNumber" data-number="6">6</button>
-            <button class="button buttonOperator" data-action="subtract">-</button>
+					<button class="button buttonNumber" type="submit" name="number" value="4">4</button>
+					<button class="button buttonNumber" type="submit" name="number" value="5">5</button>
+					<button class="button buttonNumber" type="submit" name="number" value="6">6</button>
+					<button class="button buttonOperator" type="submit" name="action" value="subtract">-</button>
 
-            <button class="button buttonNumber" data-number="1">1</button>
-            <button class="button buttonNumber" data-number="2">2</button>
-            <button class="button buttonNumber" data-number="3">3</button>
-            <button class="button buttonOperator" data-action="add">+</button>
-            
-            <button class="button buttonNumber large" data-number="0">0</button>
-            <button class="button buttonFunction" data-number=",">,</button>
-            <button class="button buttonFunction" data-action="equals">=</button>
-        </div>
-    </main>
-  </body>
+					<button class="button buttonNumber" type="submit" name="number" value="1">1</button>
+					<button class="button buttonNumber" type="submit" name="number" value="2">2</button>
+					<button class="button buttonNumber" type="submit" name="number" value="3">3</button>
+					<button class="button buttonOperator" type="submit" name="action" value="add">+</button>
+					
+					<button class="button buttonNumber large" type="submit" name="number" value="0">0</button>
+					<button class="button buttonFunction" type="submit" name="number" value=",">,</button>
+					<button class="button buttonFunction" type="submit" name="action" value="equals">=</button>	
+				</div>
+			</form>
+		</main>
+	</body>
 </html>
