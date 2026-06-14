@@ -8,10 +8,10 @@ session_start();
 
 	if (isset($_POST["number"])) 
 		{
-		if (!empty($_SESSION["waiting_for_second"]) && $_SESSION["waiting_for_second"] === true) 
+		if (!empty($_SESSION["waitingForSecond"]) && $_SESSION["waitingForSecond"] === true) 
 		{
 			$_SESSION["display"] = $_POST["number"];
-			$_SESSION["waiting_for_second"] = false;
+			$_SESSION["waitingForSecond"] = false;
 		} 
 		else 
 		{
@@ -32,7 +32,7 @@ session_start();
 		if ($action === "clear") 
 		{
 			$_SESSION["display"] = "0";
-			unset($_SESSION["result"], $_SESSION["operator"], $_SESSION["operatorSymbol"], $_SESSION["waiting_for_second"]);
+			unset($_SESSION["result"], $_SESSION["operator"], $_SESSION["operatorSymbol"], $_SESSION["waitingForSecond"]);
 		}
 		elseif ($action === "negate") 
 		{
@@ -62,13 +62,13 @@ session_start();
 			$float = str_replace(",", ".", $_SESSION["display"]);
 
 			/*
-				^: am anfang des Ausdrucks
+				^: Anfang des Ausdrucks
 				-?: optional: evtl eine negative Zahl
 				\d+: mindestens eine GanzZahl oder mehrere 0-9
 				(\.\d+)?: die Klammer präsentieren eine Gruppe und das ? sagt dass diese wieder nur optional ist
 					\.: das bedeuted dass der . als Zeichen dort ist
 					\d+: mindestens eine GanzZahl oder mehrere 0-9
-				$: am Ende des Ausdrucks
+				$: Ende des Ausdrucks
 			*/
 
 			if (preg_match("/^-?\d+(\.\d+)?$/", $float)) 
@@ -92,7 +92,7 @@ session_start();
 			$_SESSION["operatorSymbol"] = $symbols[$action];
 
 			$_SESSION["display"] = $_SESSION["result"] . " " . $_SESSION["operatorSymbol"];
-			$_SESSION["waiting_for_second"] = true;
+			$_SESSION["waitingForSecond"] = true;
 		}
 		elseif ($action === "equals") 
 		{
@@ -125,7 +125,7 @@ session_start();
 				}
 
 				$_SESSION["display"] = str_replace(".", ",", (string)$result);
-				unset($_SESSION["result"], $_SESSION["operator"], $_SESSION["operatorSymbol"], $_SESSION["waiting_for_second"]);
+				unset($_SESSION["result"], $_SESSION["operator"], $_SESSION["operatorSymbol"], $_SESSION["waitingForSecond"]);
 			}
 		}
 	}
