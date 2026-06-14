@@ -30,9 +30,9 @@
 			if ($_SESSION["display"] !== "0") 
 			{
 				/* 
-				strpos durchsucht den string und sucht die position in unserem fall das -
+				strpos durchsucht den string und sucht die position in unserem fall wo das - liegt
 				Find the position of the first occurrence of "-" inside the string:
-				0 überprüft die erste position wie in einem array[0] ob ein negation da ist wir wollen keine mehrfachen negationen wie zB -----5
+				0 überprüft die erste position wie in einem array[0] ob eine negation da ist, wir wollen keine mehrfachen negationen wie zB -----5
 				Bedingung ? AusdruckWennWahr : AusdruckWennFalsch;
 				*/
                 $_SESSION["display"] = (strpos($_SESSION["display"], "-") === 0)
@@ -40,6 +40,37 @@
                     : "-" . $_SESSION["display"];
             }
 		}
+		elseif ($action === ",") 
+		{
+			if (strpos($_SESSION["display"], ",") === false) {
+				$_SESSION["display"] .= ",";
+			}
+		}
+		elseif ($action === "percent")
+		{
+			$float = str_replace(",", ".", $_SESSION["display"]);
+			/*
+				^: am anfang des Ausdrucks
+
+				-?: optional: evtl eine negative Zahl
+
+				\d+: mindestens eine GanzZahl oder mehrere 0-9
+
+				(\.\d+)?: die Klammer präsentieren eine Gruppe und das ? sagt dass diese wieder nur optional ist
+
+					\.: das bedeuted dass der . als Zeichen dort ist
+					\d+: mindestens eine GanzZahl oder mehrere 0-9
+				
+				$: am Ende des Ausdrucks
+
+			*/
+			if (preg_match("/^-?\d+(\.\d+)?$/", $float)) 
+			{
+				$result = floatval($float) / 100.0;
+				$_SESSION["display"] = str_replace(".", ",", $result);
+			}
+		}
+
 	}
 
 
