@@ -150,29 +150,29 @@ $display = $_SESSION["display"];
 				</div>
 
 				<div class="calculatorKeys">
-					<button class="button buttonFunction" type="submit" name="action" value="clear">AC</button>
-                    <button class="button buttonFunction" type="submit" name="action" value="negate">+/-</button>
-                    <button class="button buttonFunction" type="submit" name="action" value="percent">%</button>
-                    <button class="button buttonOperator" type="submit" name="action" value="divide">:</button>
+					<button class="button buttonFunction lightgrey black" type="submit" name="action" value="clear">AC</button>
+                    <button class="button buttonFunction lightgrey black" type="submit" name="action" value="negate">+/-</button>
+                    <button class="button buttonFunction lightgrey black" type="submit" name="action" value="percent">%</button>
+                    <button class="button buttonOperator orange white" type="submit" name="action" value="divide">:</button>
 
-                    <button class="button buttonNumber" type="submit" name="number" value="7">7</button>
-                    <button class="button buttonNumber" type="submit" name="number" value="8">8</button>
-                    <button class="button buttonNumber" type="submit" name="number" value="9">9</button>
-                    <button class="button buttonOperator" type="submit" name="action" value="multiply">x</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="7">7</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="8">8</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="9">9</button>
+                    <button class="button buttonOperator orange white" type="submit" name="action" value="multiply">x</button>
 
-                    <button class="button buttonNumber" type="submit" name="number" value="4">4</button>
-                    <button class="button buttonNumber" type="submit" name="number" value="5">5</button>
-                    <button class="button buttonNumber" type="submit" name="number" value="6">6</button>
-                    <button class="button buttonOperator" type="submit" name="action" value="subtract">-</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="4">4</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="5">5</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="6">6</button>
+                    <button class="button buttonOperator orange white" type="submit" name="action" value="subtract">-</button>
 
-                    <button class="button buttonNumber" type="submit" name="number" value="1">1</button>
-                    <button class="button buttonNumber" type="submit" name="number" value="2">2</button>
-                    <button class="button buttonNumber" type="submit" name="number" value="3">3</button>
-                    <button class="button buttonOperator" type="submit" name="action" value="add">+</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="1">1</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="2">2</button>
+                    <button class="button buttonNumber grey white" type="submit" name="number" value="3">3</button>
+                    <button class="button buttonOperator orange white" type="submit" name="action" value="add">+</button>
                     
-                    <button class="button buttonNumber large" type="submit" name="number" value="0">0</button>
-                    <button class="button buttonFunction" type="submit" name="action" value=",">,</button>
-                    <button class="button buttonFunction" type="submit" name="action" value="equals">=</button> 
+                    <button class="button buttonNumber large grey white" type="submit" name="number" value="0">0</button>
+                    <button class="button buttonFunction grey white" type="submit" name="action" value=",">,</button>
+                    <button class="button buttonFunction orange white" type="submit" name="action" value="equals">=</button> 
 				</div>
 			</form>
 		</main>
