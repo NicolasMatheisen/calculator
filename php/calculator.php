@@ -1,29 +1,38 @@
 <?php
-    session_start();
-	
+session_start();
+
 	if (!isset($_SESSION["display"])) 
 	{
-    	$_SESSION["display"] = "0";
+		$_SESSION["display"] = "0";
 	}
 
-   if (isset($_POST["number"])) 
-	{
-
-        if ($_SESSION["display"] === "0") 
+	if (isset($_POST["number"])) 
 		{
-            $_SESSION["display"] = $_POST["number"];
-        } 
+		if (!empty($_SESSION["waiting_for_second"]) && $_SESSION["waiting_for_second"] === true) 
+		{
+			$_SESSION["display"] = $_POST["number"];
+			$_SESSION["waiting_for_second"] = false;
+		} 
 		else 
 		{
-            $_SESSION["display"] .= $_POST["number"];
-        }
-    }
+			if ($_SESSION["display"] === "0") 
+			{
+				$_SESSION["display"] = $_POST["number"];
+			} 
+			else 
+			{
+				$_SESSION["display"] .= $_POST["number"];
+			}
+		}
+	}
 	elseif (isset($_POST["action"])) 
-	{
+		{
 		$action = $_POST["action"];
+
 		if ($action === "clear") 
 		{
 			$_SESSION["display"] = "0";
+			unset($_SESSION["result"], $_SESSION["operator"], $_SESSION["operatorSymbol"], $_SESSION["waiting_for_second"]);
 		}
 		elseif ($action === "negate") 
 		{
@@ -35,46 +44,93 @@
 				0 überprüft die erste position wie in einem array[0] ob eine negation da ist, wir wollen keine mehrfachen negationen wie zB -----5
 				Bedingung ? AusdruckWennWahr : AusdruckWennFalsch;
 				*/
-                $_SESSION["display"] = (strpos($_SESSION["display"], "-") === 0)
-                    ? substr($_SESSION["display"], 1)
-                    : "-" . $_SESSION["display"];
-            }
+				
+				$_SESSION["display"] = (strpos($_SESSION["display"], "-") === 0)
+					? substr($_SESSION["display"], 1)
+					: "-" . $_SESSION["display"];
+			}
 		}
 		elseif ($action === ",") 
 		{
-			if (strpos($_SESSION["display"], ",") === false) {
+			if (strpos($_SESSION["display"], ",") === false) 
+			{
 				$_SESSION["display"] .= ",";
 			}
 		}
-		elseif ($action === "percent")
+		elseif ($action === "percent") 
 		{
 			$float = str_replace(",", ".", $_SESSION["display"]);
+
 			/*
 				^: am anfang des Ausdrucks
-
 				-?: optional: evtl eine negative Zahl
-
 				\d+: mindestens eine GanzZahl oder mehrere 0-9
-
 				(\.\d+)?: die Klammer präsentieren eine Gruppe und das ? sagt dass diese wieder nur optional ist
-
 					\.: das bedeuted dass der . als Zeichen dort ist
 					\d+: mindestens eine GanzZahl oder mehrere 0-9
-				
 				$: am Ende des Ausdrucks
-
 			*/
+
 			if (preg_match("/^-?\d+(\.\d+)?$/", $float)) 
 			{
 				$result = floatval($float) / 100.0;
-				$_SESSION["display"] = str_replace(".", ",", $result);
+				$_SESSION["display"] = str_replace(".", ",", (string)$result);
 			}
 		}
+		elseif (in_array($action, ["add", "subtract", "multiply", "divide"])) 
+		{
+			$_SESSION["result"] = $_SESSION["display"];
+			$_SESSION["operator"] = $action;
 
+			$symbols = 
+			[
+				"add" => "+",
+				"subtract" => "-",
+				"multiply" => "×",
+				"divide" => ":"
+			];
+			$_SESSION["operatorSymbol"] = $symbols[$action];
+
+			$_SESSION["display"] = $_SESSION["result"] . " " . $_SESSION["operatorSymbol"];
+			$_SESSION["waiting_for_second"] = true;
+		}
+		elseif ($action === "equals") 
+		{
+			if (isset($_SESSION["result"]) && isset($_SESSION["operator"])) 
+			{
+				$firstNumber = floatval(str_replace(",", ".", $_SESSION["result"]));
+				$secondNumber = floatval(str_replace(",", ".", $_SESSION["display"]));
+
+				switch ($_SESSION["operator"]) 
+				{
+					case "add":
+						$result = $firstNumber + $secondNumber;
+						break;
+					case "subtract":
+						$result = $firstNumber - $secondNumber;
+						break;
+					case "multiply":
+						$result = $firstNumber * $secondNumber;
+						break;
+					case "divide":
+						if ($secondNumber == 0) 
+						{
+							$result = "Division durch 0 ist nicht erlaubt!";
+						} 
+						else 
+						{
+							$result = $firstNumber / $secondNumber;
+						}
+						break;
+				}
+
+				$_SESSION["display"] = str_replace(".", ",", (string)$result);
+				unset($_SESSION["result"], $_SESSION["operator"], $_SESSION["operatorSymbol"], $_SESSION["waiting_for_second"]);
+			}
+		}
 	}
 
-
-	$display = $_SESSION["display"];
+$display = $_SESSION["display"];
 ?>
 
 <!DOCTYPE html>
