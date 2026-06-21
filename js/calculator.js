@@ -2,7 +2,7 @@ let displayValue = '0';
 let operator = '';
 let firstOperand = null;
 let secondOperand = null;
-let awaitSecondOperator = false;
+let awaitSecondOperand = false;
 
 document.querySelectorAll('.button').forEach(
     button => {
@@ -24,9 +24,9 @@ document.querySelectorAll('.button').forEach(
 
 
 function handleNumberInput(number) {
-    if (awaitSecondOperator) {
+    if (awaitSecondOperand) {
         displayValue = number;
-        awaitSecondOperator = false;
+        awaitSecondOperand = false;
     } else {
         if (displayValue === '0' || displayValue === '') {
             displayValue = number;
@@ -43,21 +43,21 @@ function handleNumberInput(number) {
     updateDisplay();
 }
 
-
+/*
 function handleActionInput(action) {
     if (action === 'clear') {
         displayValue = '0';
         firstOperand = null;
         secondOperand = null;
         operator = '';
-        awaitSecondOperator = false;
+        awaitSecondOperand = false;
     } 
     else if (action === 'equals' && firstOperand !== null && operator) {
             secondOperand = parseFloat(displayValue);
             displayValue = calculate(firstOperand, secondOperand, operator);
             operator = '';
             firstOperand = null;
-            awaitSecondOperator = false;
+            awaitSecondOperand = false;
     }
      else if (action === 'negate') {
         displayValue = (parseFloat(displayValue) * -1).toString();
@@ -75,10 +75,46 @@ function handleActionInput(action) {
             firstOperand = parseFloat(displayValue);
         }
         operator = action;
-        awaitSecondOperator = true;
+        awaitSecondOperand = true;
     }
     updateDisplay();
 }
+*/
+
+function handleActionInput(action) {
+    switch(action) {
+
+        case 'clear': 
+            resetDisplay();
+            break;
+
+        case 'equals':
+            if (firstOperand !== null && operator) {
+                secondOperand = parseFloat(displayValue);
+                displayValue = calculate(firstOperand, secondOperand, operator).toString();
+                operator = '';
+                firstOperand = null;
+                awaitSecondOperand = false;
+            }
+            break;
+
+        case 'negate':
+            displayValue = (parseFloat(displayValue) * -1).toString();
+            break;
+
+        case 'percent':
+            displayValue = (parseFloat(displayValue) / 100).toString();
+            break;
+
+        default:
+            handleOperator(action);
+            break;
+    }
+
+    updateDisplay();
+}
+
+
 
 function calculate(firstOperand, secondOperand, operator) {
     switch (operator) {
@@ -99,8 +135,27 @@ function calculate(firstOperand, secondOperand, operator) {
     }
 }
 
+function resetDisplay() {
+    displayValue = '0';
+    firstOperand = null;
+    secondOperand = null;
+    operator = '';
+    awaitSecondOperand = false;
+}
 
 function updateDisplay() {
     const display = document.getElementById('display');
     display.textContent = displayValue;
+}
+
+function handleOperator(nextOperator) {
+    if (firstOperand === null) {
+        firstOperand = parseFloat(displayValue);
+    } else if (operator) {
+        secondOperand = parseFloat(displayValue);
+        displayValue = calculate(firstOperand, secondOperand, operator).toString();
+        firstOperand = parseFloat(displayValue);
+    }
+    operator = nextOperator;
+    awaitSecondOperand = true;
 }
