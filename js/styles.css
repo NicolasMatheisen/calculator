@@ -1,3 +1,7 @@
+body {
+    background-color: black;
+}
+
 .calculator {
     max-width: 600px;
     margin: 0 auto;
@@ -39,4 +43,24 @@
     padding: 20px;
     border-radius: 10px;
     text-align: right;
+}
+
+.white{
+    color: white;
+}
+
+.black {
+    color: black;
+}
+
+.orange {
+    background-color: orangered;
+}
+
+.lightgrey {
+    background-color: #cccccc;
+}
+
+.grey {
+    background-color: #666666;
 }
