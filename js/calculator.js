@@ -89,13 +89,13 @@ function handleActionInput(action) {
             break;
 
         case 'equals':
-            if (firstOperand !== null && operator) {
-                secondOperand = parseFloat(displayValue);
-                displayValue = calculate(firstOperand, secondOperand, operator).toString();
-                operator = '';
-                firstOperand = null;
-                awaitSecondOperand = false;
-            }
+            if (firstOperand === null || !operator) break;
+
+            secondOperand = parseFloat(displayValue);
+            displayValue = calculate(firstOperand, secondOperand, operator).toString();
+            operator = '';
+            firstOperand = null;
+            awaitSecondOperand = false;
             break;
 
         case 'negate':
