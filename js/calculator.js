@@ -52,14 +52,12 @@ function handleActionInput(action) {
         operator = '';
         awaitSecondOperator = false;
     } 
-    else if (action === 'equals') {
-        if (firstOperand !== null && operator) {
+    else if (action === 'equals' && firstOperand !== null && operator) {
             secondOperand = parseFloat(displayValue);
             displayValue = calculate(firstOperand, secondOperand, operator);
             operator = '';
             firstOperand = null;
             awaitSecondOperator = false;
-        }
     }
      else if (action === 'negate') {
         displayValue = (parseFloat(displayValue) * -1).toString();
